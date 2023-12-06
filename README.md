@@ -1,6 +1,6 @@
 # BookStore Sort
 
-> Obs: Não consegui compreender o desafio. Não entendi como chegar a um código em que a ordenação correspondesse aos "Test cases" apresentados no documento. Todavia criei um App com React native que faz a ordenaçnao dos livros.
+> Obs: Não consegui compreender completamente o desafio. Não entendi como chegar a um código em que a ordenação correspondesse aos "Test cases" apresentados no documento. Todavia criei um App com React native que faz a ordenaçao dos livros. Onde consigo ordernar os livros por título, autor ou ano da edição
 
 ### Funcionalidades do projeto
 
@@ -20,15 +20,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias.
 - Styled Components
 - Jest
 
-## 💻 Tecnologias utilizadas
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-
-- Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
-- Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-- Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
-
-## 🚀 Executando o projeto
+### 🚀 Executando o projeto
 
 Para executar o projeto, siga estas etapas:
 
@@ -40,4 +32,18 @@ Ou
 
 ```
 npm run ios (android)
+```
+
+### 🚀 Executando os testes
+
+Para executar os testes, siga estas etapas:
+
+```
+yarn test
+```
+
+Ou
+
+```
+npm run test
 ```
