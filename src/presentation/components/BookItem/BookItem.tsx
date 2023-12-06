@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./BookItem.styles";
-import { Book } from "../../../data/book/bookTypes";
+import { Book } from "@/data";
 
 interface Props {
   book: Book;

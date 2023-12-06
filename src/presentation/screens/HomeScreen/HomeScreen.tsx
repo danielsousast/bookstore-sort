@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import * as S from "./HomeScreen.styles";
 import {
   Input,
@@ -7,46 +7,21 @@ import {
   ModalSort,
 } from "@/presentation/components";
 import { FlatList, ListRenderItemInfo } from "react-native";
-import { getBooks } from "@/data/book/bookService";
 import { Book } from "@/data/book/bookTypes";
+import { useHomeScreen } from "./useHomeScreen";
 
 export const HomeScreen = () => {
-  const [searchString, setSearchString] = React.useState("");
-  const [selectedSortRules, setSelectedSortRules] = React.useState();
-  const [showSortModal, setShowSortModal] = React.useState(false);
-  const [books, setBooks] = React.useState([]);
-
-  const filteredBooks = useMemo(() => {
-    if (!searchString) {
-      return books;
-    }
-    return searchBooksByTitle(searchString, books);
-  }, [books, searchString]);
-
-  React.useEffect(() => {
-    function loadBooks() {
-      const response = getBooks({
-        sortRules: selectedSortRules,
-      });
-      setBooks(response);
-    }
-    loadBooks();
-  }, [selectedSortRules]);
+  const {
+    searchString,
+    setSearchString,
+    filteredBooks,
+    setShowSortModal,
+    showSortModal,
+    handleSortRulesChange,
+  } = useHomeScreen();
 
   function renderItem({ item }: ListRenderItemInfo<Book>) {
     return <BookItem book={item} />;
-  }
-
-  function handleSortRulesChange(sortRules: any) {
-    setSelectedSortRules(sortRules);
-    setShowSortModal(false);
-  }
-
-  function searchBooksByTitle(query: string, books: Book[]): Book[] {
-    const searchResults: Book[] = books?.filter((book) =>
-      book.title.toLowerCase().includes(query?.toLowerCase())
-    );
-    return searchResults;
   }
 
   return (

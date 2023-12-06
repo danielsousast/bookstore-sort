@@ -2,61 +2,42 @@ import { Book } from "./bookTypes";
 import { books as rawBookList } from "./inputs";
 
 interface GetBooksParams {
-  sortRules: any[];
+  sortBy: string;
 }
 
-export function getBooks({ sortRules }: GetBooksParams): Book[] {
-  console.log(sortRules);
-  return sortBooks(sortRules, rawBookList);
+export function getBooks(sortBy: string): Book[] {
+  return sortBooks(sortBy, rawBookList);
 }
 
-function sortBooks(sortRules: string[], books: Book[]) {
-  if (sortRules === null) {
+function sortBooks(sortBy: string, books: Book[]) {
+  if (sortBy === null) {
     throw new Error("Rule cannot be null");
   }
 
   let sortedBooks = [...books];
 
-  if (
-    arraysHaveSameElements(sortRules, [
-      "title-ascending",
-      "author-descending",
-      "edition-descending",
-    ])
-  ) {
-    sortedBooks = sortByEditionDescAuthorDescTitleAsc(sortedBooks);
+  switch (sortBy) {
+    case "title-ascending":
+      sortedBooks = sortByTitleAscending(sortedBooks);
+      break;
+    case "title-descending":
+      sortedBooks = sortByTitleDescending(sortedBooks);
+      break;
+    case "author-ascending":
+      sortedBooks = sortByAuthorAscending(sortedBooks);
+      break;
+    case "author-descending":
+      sortedBooks = sortByAuthorDescending(sortedBooks);
+      break;
+    case "edition-ascending":
+      sortedBooks = sortByYearAscending(sortedBooks);
+      break;
+    case "edition-descending":
+      sortedBooks = sortByYearDescending(sortedBooks);
+      break;
+    default:
+      return sortedBooks;
   }
-
-  if (
-    arraysHaveSameElements(sortRules, ["author-ascending", "title-descending"])
-  ) {
-    sortedBooks = sortByAuthorAscending(sortedBooks);
-  }
-
-  sortRules?.forEach((filter) => {
-    switch (filter) {
-      case "title-ascending":
-        sortedBooks = sortByTitleAscending(sortedBooks);
-        break;
-      case "title-descending":
-        sortedBooks = sortByTitleDescending(sortedBooks);
-        break;
-      case "author-ascending":
-        sortedBooks = sortByAuthorAscending(sortedBooks);
-        break;
-      case "author-descending":
-        sortedBooks = sortByAuthorDescending(sortedBooks);
-        break;
-      case "edition-ascending":
-        sortedBooks = sortByYearAscending(sortedBooks);
-        break;
-      case "edition-descending":
-        sortedBooks = sortByYearDescending(sortedBooks);
-        break;
-      default:
-        return sortedBooks;
-    }
-  });
 
   return sortedBooks;
 }

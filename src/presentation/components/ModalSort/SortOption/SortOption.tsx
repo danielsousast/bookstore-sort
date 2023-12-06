@@ -1,11 +1,8 @@
 import React from "react";
-import { View } from "react-native";
 import styled from "styled-components/native";
 
-// import { Container } from './styles';
-
 interface Props {
-  filter: {
+  option: {
     slug: string;
     display: string;
   };
@@ -13,10 +10,10 @@ interface Props {
   onPress: () => void;
 }
 
-export function SortOption({ filter, isSelected, onPress }: Props) {
+export function SortOption({ option, isSelected, onPress }: Props) {
   return (
     <Wrapper isSelected={isSelected} onPress={onPress}>
-      <Label>{filter?.display}</Label>
+      <Label>{option?.display}</Label>
     </Wrapper>
   );
 }

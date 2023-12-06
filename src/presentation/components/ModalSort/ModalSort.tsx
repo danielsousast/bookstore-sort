@@ -1,5 +1,5 @@
 import React from "react";
-import ReactNativeModal, { ModalProps } from "react-native-modal";
+import ReactNativeModal from "react-native-modal";
 import * as S from "./ModalSort.styles";
 import { SortOption } from "./SortOption/SortOption";
 import { Button } from "../Button/Button";
@@ -34,41 +34,31 @@ const SORT_OPTIONS = [
 interface Props {
   onClose: () => void;
   isVisible: boolean;
-  onSubmit: (filters: string[]) => void;
+  onSubmit: (filters: string) => void;
 }
 
-interface Filter {
+interface Option {
   slug: string;
   display: string;
 }
 
 export function ModalSort({ onClose, isVisible, onSubmit }: Props) {
-  const [selectedSortRules, setSelectedSortRules] = React.useState<Filter[]>(
-    [] as Filter[]
-  );
+  const [selectedSortRule, setSelectedSortRule] = React.useState<Option>(null);
 
-  function handleToggleFilter(filter) {
-    if (selectedSortRules.includes(filter)) {
-      const updatedRules = selectedSortRules.filter(
-        (selectedRule) => selectedRule !== filter
-      );
-      setSelectedSortRules(updatedRules);
-    } else {
-      setSelectedSortRules([...selectedSortRules, filter]);
+  function handleToggle(option) {
+    if (selectedSortRule?.slug === option.slug) {
+      setSelectedSortRule(null);
+      return;
     }
+    setSelectedSortRule(option);
   }
 
-  function isFilterSelected(filter) {
-    return selectedSortRules.some(
-      (selectedFilter) => selectedFilter.slug === filter.slug
-    );
+  function isOptionSelected(option) {
+    return selectedSortRule?.slug === option.slug;
   }
 
-  function handleApplyFilters() {
-    const selectedSortRulesSlugs = selectedSortRules.map(
-      (option) => option.slug
-    );
-    onSubmit(selectedSortRulesSlugs);
+  function handleApply() {
+    onSubmit(selectedSortRule?.slug);
     onClose();
   }
 
@@ -88,15 +78,15 @@ export function ModalSort({ onClose, isVisible, onSubmit }: Props) {
       style={{ margin: 0, justifyContent: "flex-end" }}
     >
       <S.ModalContent>
-        {SORT_OPTIONS.map((filter) => (
+        {SORT_OPTIONS.map((option) => (
           <SortOption
-            key={filter.slug}
-            filter={filter}
-            isSelected={isFilterSelected(filter)}
-            onPress={() => handleToggleFilter(filter)}
+            key={option.slug}
+            option={option}
+            isSelected={isOptionSelected(option)}
+            onPress={() => handleToggle(option)}
           />
         ))}
-        <Button title="Aplicar" onPress={handleApplyFilters} />
+        <Button title="Aplicar" onPress={handleApply} />
       </S.ModalContent>
     </ReactNativeModal>
   );

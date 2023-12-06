@@ -11,7 +11,7 @@ export function Input({ containerSyles, ...rest }: Props) {
   const { colors } = useTheme();
   return (
     <S.Container style={containerSyles}>
-      <S.TextInput {...rest} placeholderTextColor={colors.text} />
+      <S.TextInput {...rest} placeholderTextColor={colors.textLight} />
     </S.Container>
   );
 }
