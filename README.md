@@ -3,7 +3,7 @@
 > Obs: Não consegui compreender completamente o desafio. Não entendi como chegar a um código em que a ordenação correspondesse aos "Test cases" apresentados no documento. Todavia criei um App com React native que faz a ordenaçao dos livros. Onde consigo ordernar os livros por título, autor ou ano da edição
 
 <div style="display: flex; height: 400px">
-<img src="./.github/book1.png" >
+<img src="./.github/book1.png">
 <img src="./.github/book2.png">
 </div>
 
