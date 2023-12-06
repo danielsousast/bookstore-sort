@@ -10,9 +10,10 @@ export function BookItem({ book }: Props) {
   return (
     <S.Container>
       <S.Image source={book.image} resizeMode="cover" />
-      <S.ItemText>
-        {book.id} - {book.title}
-      </S.ItemText>
+      <S.InfoWrapper>
+        <S.ItemText>{book.title}</S.ItemText>
+        <S.Label>{book.author}</S.Label>
+      </S.InfoWrapper>
     </S.Container>
   );
 }

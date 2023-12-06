@@ -1,38 +1,35 @@
 import React from "react";
-import styled from "styled-components/native";
+import Icon from "@expo/vector-icons/Octicons";
+import * as S from "./SortOption.styles";
 
 interface Props {
-  option: {
-    slug: string;
-    display: string;
-  };
+  option: string;
   isSelected: boolean;
   onPress: () => void;
+  size?: "small" | "large";
+  icon?: string;
 }
 
-export function SortOption({ option, isSelected, onPress }: Props) {
+export function SortOption({
+  option,
+  isSelected,
+  onPress,
+  size = "large",
+  icon,
+}: Props) {
   return (
-    <Wrapper isSelected={isSelected} onPress={onPress}>
-      <Label>{option?.display}</Label>
-    </Wrapper>
+    <S.Wrapper isSelected={isSelected} onPress={onPress} size={size}>
+      {icon && (
+        <Icon
+          name={icon as any}
+          size={20}
+          style={{
+            marginRight: 8,
+          }}
+        />
+      )}
+
+      <S.Label>{option}</S.Label>
+    </S.Wrapper>
   );
 }
-
-interface WrapperProps {
-  isSelected: boolean;
-}
-
-export const Wrapper = styled.TouchableOpacity<WrapperProps>`
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background-color: ${({ theme }) => theme.colors.background};
-  border: 1px solid ${({ theme }) => theme.colors.backgroundLight};
-  margin-bottom: 10px;
-  border-radius: 5px;
-  ${({ isSelected }) => isSelected && `background-color: #eee;`};
-`;
-
-export const Label = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-`;

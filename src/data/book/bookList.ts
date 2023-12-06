@@ -1,4 +1,4 @@
-export const books = [
+export const bookList = [
   {
     id: 1,
     title: "Clean Code: A Handbook of Agile Software Craftsmanship",

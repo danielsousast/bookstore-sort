@@ -12,12 +12,24 @@ export const Container = styled.View`
   border-bottom-color: ${({ theme }) => theme.colors.backgroundLight};
 `;
 
+export const InfoWrapper = styled.View`
+  width: 100%;
+`;
+
 export const ItemText = styled.Text`
   font-weight: bold;
   font-size: 18px;
   margin-left: 12px;
   width: 75%;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const Label = styled.Text`
+  font-size: 14px;
+  margin-left: 12px;
+  width: 75%;
+  margin-top: 4px;
+  color: ${({ theme }) => theme.colors.textLight};
 `;
 
 export const Image = styled.Image`

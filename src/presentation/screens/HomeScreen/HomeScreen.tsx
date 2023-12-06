@@ -1,16 +1,19 @@
 import React from "react";
+import { FlatList, ListRenderItemInfo } from "react-native";
 import * as S from "./HomeScreen.styles";
 import {
   Input,
   BookItem,
-  FilterButton,
+  SortButton,
   ModalSort,
 } from "@/presentation/components";
-import { FlatList, ListRenderItemInfo } from "react-native";
 import { Book } from "@/data/book/bookTypes";
 import { useHomeScreen } from "./useHomeScreen";
+import { HomeListEmpty } from "./components/HomeListEmpty";
+import { useAppSafeArea } from "@/presentation/hooks";
 
 export const HomeScreen = () => {
+  const { top } = useAppSafeArea();
   const {
     searchString,
     setSearchString,
@@ -25,17 +28,25 @@ export const HomeScreen = () => {
   }
 
   return (
-    <S.ScreeContainer>
+    <S.ScreeContainer
+      style={{
+        paddingTop: top,
+      }}
+    >
       <S.Content>
         <S.InputWrapper>
           <Input
-            placeholder="Pesquise seu livro"
+            placeholder="Pesquise seu livro pelo título"
             value={searchString}
             onChangeText={setSearchString}
           />
-          <FilterButton onPress={() => setShowSortModal(true)} />
+          <SortButton onPress={() => setShowSortModal(true)} />
         </S.InputWrapper>
-        <FlatList data={filteredBooks} renderItem={renderItem} />
+        <FlatList
+          data={filteredBooks}
+          renderItem={renderItem}
+          ListEmptyComponent={<HomeListEmpty />}
+        />
       </S.Content>
       <ModalSort
         isVisible={showSortModal}

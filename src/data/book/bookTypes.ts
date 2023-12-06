@@ -7,3 +7,6 @@ export interface Book {
   editionYear: number;
   image: ImageSourcePropType;
 }
+
+export type BookSortBy = keyof Book;
+export type BookSortOrder = "ascending" | "descending";
