@@ -22,10 +22,6 @@ export function ModalSort({ onClose, isVisible, onSubmit }: Props) {
   }
 
   const handleSelectSortOder = useCallback((option: BookSortOrder) => {
-    if (sortOrder === option) {
-      setSortOrder(null);
-      return;
-    }
     setSortOrder(option);
   }, []);
 

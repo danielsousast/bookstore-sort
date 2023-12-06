@@ -1,11 +1,10 @@
-import { getBooks } from "./bookService";
+import { Book } from "@/data";
+import { sortingService } from "./sortService";
+import { bookList } from "@/data/book/bookList";
 
-describe("getBooks", () => {
+describe("sortingService", () => {
   it("should order by title", () => {
-    const books = getBooks({
-      sortBy: "title",
-      sortOrder: "ascending",
-    });
+    const books = sortingService.sort<Book>(bookList, "title", "ascending");
     expect(books[0].title).toBe(
       "Clean Code: A Handbook of Agile Software Craftsmanship"
     );
@@ -15,10 +14,7 @@ describe("getBooks", () => {
   });
 
   it("should order by author", () => {
-    const books = getBooks({
-      sortBy: "author",
-      sortOrder: "ascending",
-    });
+    const books = sortingService.sort<Book>(bookList, "author", "ascending");
 
     expect(books[0].author).toBe("Eve Porcello, Alex Banks");
     expect(books[1].author).toBe("Robert C. Martin");
@@ -29,10 +25,11 @@ describe("getBooks", () => {
   });
 
   it("should order by year", () => {
-    const books = getBooks({
-      sortBy: "editionYear",
-      sortOrder: "ascending",
-    });
+    const books = sortingService.sort<Book>(
+      bookList,
+      "editionYear",
+      "ascending"
+    );
 
     expect(books[0].editionYear).toBe(2008);
     expect(books[1].editionYear).toBe(2011);
@@ -41,10 +38,7 @@ describe("getBooks", () => {
   });
 
   it("should order by title descending", () => {
-    const books = getBooks({
-      sortBy: "title",
-      sortOrder: "descending",
-    });
+    const books = sortingService.sort<Book>(bookList, "title", "descending");
 
     expect(books[0].title).toBe("The Browser Hacker's Handbook");
     expect(books[1].title).toBe("Steve Jobs");
@@ -55,10 +49,7 @@ describe("getBooks", () => {
   });
 
   it("should order by author descending", () => {
-    const books = getBooks({
-      sortBy: "author",
-      sortOrder: "descending",
-    });
+    const books = sortingService.sort<Book>(bookList, "author", "descending");
 
     expect(books[0].author).toBe("Walter Isaacson");
     expect(books[1].author).toBe(
@@ -69,14 +60,21 @@ describe("getBooks", () => {
   });
 
   it("should order by year descending", () => {
-    const books = getBooks({
-      sortBy: "editionYear",
-      sortOrder: "descending",
-    });
+    const books = sortingService.sort<Book>(
+      bookList,
+      "editionYear",
+      "descending"
+    );
 
     expect(books[0].editionYear).toBe(2018);
     expect(books[1].editionYear).toBe(2014);
     expect(books[2].editionYear).toBe(2011);
     expect(books[3].editionYear).toBe(2008);
+  });
+
+  it("should throw exception when sortBy is null", () => {
+    expect(() => {
+      sortingService.sort<Book>(bookList, null, "descending");
+    }).toThrowError("Attribute cannot be null");
   });
 });
